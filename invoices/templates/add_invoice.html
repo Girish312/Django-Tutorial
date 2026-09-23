@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Add Invoice</h1>
+<form method="post">
+  {% csrf_token %}
+  <!-- Cross Site Request Forgery token: It's a template tag which will create a hidden security token. Without this token django will reject submission. -->
+  {{ form.as_p }}
+  <!-- form is a variable form views.py and Django will rapup all fields as paragraphs. -->
+  <button type="submit">Add Invoice</button>
+</form>
+{% endblock %}

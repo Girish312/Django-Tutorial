@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing System</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="/home/">Home</a>
+        <a href="/cus_name/">Customers</a>
+        <a href="/">Log Out</a>
+    </nav>
+    {% block content %} <!-- content is the name of the block -->
+    <!-- in some templates, this block will be filled with specific content by using extend keyword -->
+    {% endblock %}
+    <footer>
+        <p>2026 Billing System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
