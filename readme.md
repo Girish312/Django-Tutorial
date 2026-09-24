@@ -99,7 +99,7 @@
 
 ## Model (query data from database and sends Object Relation Mapping to View)
 
-#### In Django, model (blueprint of a table structure which is going to be used to store data in DB) is a python class that describes the type of data which we wanna store in column. for example, we will create one model for invoices, one for customers, one for payments and every model is descibed as table in DB & every field will be a column. After model is described we have to run a command to actually create the table in the database.
+#### In Django, model (blueprint for table structure which is going to be used to store data in DB) is a python class that describes the type of data which we wanna store in column. for example, we will create one model for invoices, one for customers, one for payments and every model is described as table in DB & every field will be a column. After model is described we have to run migration command to actually create the table in the database.
 
 - **fields** (columns): every model has fields like name, age, etc.
 
@@ -228,25 +228,50 @@ After that we can run commands
 
 5) add view to urls.py
 
-# Authentication
+# Authentication System
+#### In Django, managing user identities is handled by the authentication system. Depending on your project requirements, you can work with Django's built-in options or create a custom implementation
 
+### 1) Default User Model
+#### Django provides a built-in User model out of the box `(django.contrib.auth.models.User)`. It includes standard fields:
+- username (Required)
+- password (Required, automatically hashed)
+- email, first_name, last_name (Optional)
+- is_staff, is_active, is_superuser (Booleans for permissions)
+
+### 2) Custom User Model
 #### In Django, the built-in User model handles basic authentication with fields like username, email, password, first_name, and last_name. However, in 95% of real-world production projects, this standard setup is insufficient.You should always set up a custom user model at the start of a new project, even if the default model seems enough. Changing it later after running migrations is highly complex and error-prone.
 
-### Custom User Model
-- #### Two Approaches to Custom User Models
-1) `AbstractUser` (Recommended): 
-> When you like how Django’s user works but want to add extra fields or change the login field to email. Keeps all default fields (first_name, last_name, permissions, etc.) and lets you add yours.
+- #### Two Approaches to create Custom User Models
+1) Subclassing `AbstractUser` (Recommended): 
+> Use this if you like the default fields (username, first_name, etc.) but want to add a few custom fields (e.g., birth_date, profile_picture)
 
 - STEP 1: Create App, go to models.py and import AbstractUser.
-- STEP 2: create a class and pass AbstractUser as parent class.
-- STEP 3: in settings.py add AUTH_USER_MODEL = 'appName.customModelName'
+- STEP 2: Create a subclass of AbstractUser class and create fields.
 
-2) `AbstractBaseUser`:
-> When you want to completely redesign the user model from scratch.Provides only core authentication machinery (password, last_login). You must define every other field yourself.
+*Note: if you do migration right after creating user model without explicitly telling django about it, you will have to delete database completely and recreate it.*
+
+- STEP 3: Once you have created your custom user model, you must explicitly tell Django to use it by adding a line to your settings file: `AUTH_USER_MODEL = 'app_label.ModelName'`
+- STEP 4: After updating settings.py, generate and execute your migrations:
+`python manage.py makemigrations`
+`python manage.py migrate`
+
+
+2) Subclassing `AbstractBaseUser`:
+> When you want to completely redesign the user model from scratch. Provides only core authentication machinery (password, last_login). You must define every other field yourself.
 
 ### Application Basics
 
+- URL Setup for Login and Signup.
+1) Go to urls.py and import `from django.contrib.auth import views as auth_views`
+2) create path for login and logout. (Use built-in class views `auth_views.LoginView` and `auth_views.LogoutView`)
+3) Once you have created path, you must tell Django to redirect user to specific page by giving the name of url pattern. it's done by adding these lines to your settings file:
+`LOGOUT_REDIRECT_URL = 'landing'`
+`LOGIN_REDIRECT_URL = 'home'`
+4) Create a template for login page.
+
 ### User registration
+
+
 
 # Flow from user input to output
 

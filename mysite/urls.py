@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin # importing admin module from django.contrib package
 from django.urls import path # importing path function from django.urls module
 from invoices import views # importing views from invoices app
+from django.contrib.auth import views as auth_views # importing auth views from django.contrib.auth module
 
 # Tip: You can create a specific URL for each view function or class-based view in your Django application. This allows you to map different URLs to different views, enabling users to access various parts of your application through distinct URLs.
 """ 
@@ -44,4 +45,6 @@ urlpatterns = [
     path('mark_paid/', views.mark_as_paid, name='mark_as_paid'),
     path('one_invoice/', views.show_one_invoice, name='one_invoice'),
     path('invoice/add',views.add_invoice, name='add_invoice'),
+    path('login/', auth_views.LoginView.as_view(template_name = 'accounts/login.html'), name='login'), # LoginView is a built-in class-based view provided by Django for handling user authentication. It renders a login form and processes the login request.
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'), # LogoutView is a built-in class-based view provided by Django for handling user logout. It logs the user out and redirects them to a specified page.
 ]
