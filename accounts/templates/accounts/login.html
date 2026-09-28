@@ -1,7 +1,5 @@
-{ %extends "C:\Users\IMxGIRISH\Desktop\Projects\env
-billing\invoices\templates\base.html" % }
-
-{% block content % }
+{% extends "base.html" %} <!-- we were able to use base.html from invoices template because all templates are in the same directory -->
+{% block content %}
 
 <h1>Login</h1>
 <form method="post">
@@ -12,4 +10,4 @@ billing\invoices\templates\base.html" % }
   <button type="submit">Login</button>
 </form>
 
-{% endblock % }
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Invoice(models.Model): # Model is a class which has some built-in functions, and Invoice become a child class.
+class Invoice(models.Model): # Invoice (child class) inherits all those built-in functions from Model (parent class). This is called inheritance.
     # fields (columns)
     customer_name = models.CharField(max_length=200)
     invoice_number = models.CharField(max_length=20)

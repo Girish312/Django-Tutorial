@@ -6,8 +6,8 @@ class InvoiceForm(forms.ModelForm):
         model = Invoice
         fields = ['customer_name', 'invoice_number', 'amount', 'is_paid']  # Specify the fields to include in the form
         widgets = {
-            'customer_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'invoice_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'customer_name': forms.TextInput(attrs={'class': 'form-control'}), # attrs: A dictionary that lets you pass extra HTML attributes (like id, placeholder, or class) to the rendered element.
+            'invoice_number': forms.TextInput(attrs={'class': 'form-control'}), # {'class': 'form-control'} Adds Bootstrap's specific CSS class (form-control) directly to the HTML input so it looks neat, responsive, and modern.
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
             'is_paid': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

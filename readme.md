@@ -214,16 +214,18 @@ After that we can run commands
 # Forms / validity
 #### Django Forms is a powerful built-in feature of the Django Framework that automates, secures, and simplifies the process of handling user input. Instead of writing raw HTML forms and handling validation loops manually, you define your forms as Python classes.
 
-1) create `forms.py` in application's folder
+1) create `forms.py` in application's folder and model for storing data received from form.
 
 2) import libraries and define metadata for form using python class.
-> `from django import forms` `from .models import Invoice`
->> `class myForm(forms.modelForm): class Meta: ` # In here define form's metadata.
+> `from django import forms`
+>> `class myForm(forms.modelForm): class Meta: ` # In here define metadata for form.
+
+*Note: The Fields in Model defines the database structure, while the Widget in form defines the user interface (HTML)*
 
 3) Create view for rendering form template.
 
 4) Create html template for handling form (include `{% csrf_token %}` and `{{form.as_p}}`)
-> `{{form.as_p}}` automatically performs basic validation like checking if user input matches with field's datatype or not, it doesn't exceed max length, etc.
+> `{{form.as_p}}` automatically performs basic validation like checking if user input matches with field's datatype, it doesn't exceed max length, etc.
 >> for custom validation like 'age <= 150' you have to write code logic in `forms.py`
 
 5) add view to urls.py
@@ -239,14 +241,14 @@ After that we can run commands
 - is_staff, is_active, is_superuser (Booleans for permissions)
 
 ### 2) Custom User Model
-#### In Django, the built-in User model handles basic authentication with fields like username, email, password, first_name, and last_name. However, in 95% of real-world production projects, this standard setup is insufficient.You should always set up a custom user model at the start of a new project, even if the default model seems enough. Changing it later after running migrations is highly complex and error-prone.
+#### In Django, the built-in User model handles basic authentication with fields like username, email, password, first_name, and last_name. However, in 95% of real-world production projects, this standard setup is insufficient. You should always set up a custom user model at the start of a new project, even if the default model seems enough. Changing it later after running migrations is highly complex and error-prone.
 
 - #### Two Approaches to create Custom User Models
 1) Subclassing `AbstractUser` (Recommended): 
 > Use this if you like the default fields (username, first_name, etc.) but want to add a few custom fields (e.g., birth_date, profile_picture)
 
 - STEP 1: Create App, go to models.py and import AbstractUser.
-- STEP 2: Create a subclass of AbstractUser class and create fields.
+- STEP 2: Create a subclass of AbstractUser class and create fields if necessary.
 
 *Note: if you do migration right after creating user model without explicitly telling django about it, you will have to delete database completely and recreate it.*
 
@@ -255,23 +257,30 @@ After that we can run commands
 `python manage.py makemigrations`
 `python manage.py migrate`
 
-
 2) Subclassing `AbstractBaseUser`:
 > When you want to completely redesign the user model from scratch. Provides only core authentication machinery (password, last_login). You must define every other field yourself.
 
 ### Application Basics
 
-- URL Setup for Login and Signup.
+#### How to setup URL for LOGIN??
 1) Go to urls.py and import `from django.contrib.auth import views as auth_views`
-2) create path for login and logout. (Use built-in class views `auth_views.LoginView` and `auth_views.LogoutView`)
+2) create path for login and logout. (Use built-in class-based views `auth_views.LoginView` and `auth_views.LogoutView`)
 3) Once you have created path, you must tell Django to redirect user to specific page by giving the name of url pattern. it's done by adding these lines to your settings file:
 `LOGOUT_REDIRECT_URL = 'landing'`
 `LOGIN_REDIRECT_URL = 'home'`
 4) Create a template for login page.
 
 ### User registration
+#### Django does not provide a built-in generic view or URL pattern for user registration (sign-up), so you must build it yourself using Django's provided forms and model utilities. 
 
+*Note: While login and logout have ready-made views (LoginView, LogoutView), registration requires a small combination of a built-in form, a custom view, and a template.*
 
+#### How to create it??
+1) Create the Registration Form `forms.py` in application.
+2) import django's `UserCreationForm ` if you want to add extra fields like an email address.
+3) Create a Registration View to Handle the form submission and User creation.
+4) Connect your view to a URL pattern.
+5) Create a template with a standard form POST action to render the input fields for the user.
 
 # Flow from user input to output
 

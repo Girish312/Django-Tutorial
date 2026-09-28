@@ -26,10 +26,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'accounts.CustomUser' #this is the path to the custom user model we created in accounts/models.py
+AUTH_USER_MODEL = 'accounts.CustomUser' # this is the path to the custom user model we created in accounts/models.py, it tells Django to use this model instead of the default User model for authentication and user management.
 
-LOGIN_REDIRECT_URL = 'home' #this is the name of the url pattern we want to redirect to after login. It is defined in mysite/urls.py
-LOGOUT_REDIRECT_URL = 'landing' #this is the name of the url pattern we want to redirect to after logout. It is defined in mysite/urls.py
+LOGIN_REDIRECT_URL = 'home' # this is the name of the url pattern we want to redirect to after login. It is defined in mysite/urls.py
+LOGOUT_REDIRECT_URL = 'landing' # this is the name of the url pattern we want to redirect to after logout. It is defined in mysite/urls.py
 
 # Application definition
 
