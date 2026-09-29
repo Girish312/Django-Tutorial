@@ -1,24 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for invoice in all_invoices %}
-            <h2>Invoice for {{ invoice.invoice_number }}</h2>
-            <p>Customer Name: {{ invoice.customer_name }}</p>
-            <p>Amount: ${{ invoice.amount }}</p>
-            <p>Due Date: {{ invoice.due_date }}</p>
+    {% for inv in all_invoices %}
+            <h2>Invoice for {{ inv.invoice_number }}</h2>
+            <p>Customer Name: {{ inv.customer_name }}</p>
+            <p>Amount: ${{ inv.amount }}</p>
+            <p>Created: {{ inv.date_created|date:"d M Y" }}</p>
 
-            {% if invoice.amount >= 150 %}
+            {% if inv.amount >= 150 %}
                 <p>High-value invoice!</p>
             {% else %}
-                <p>No invoices available.</p>
+                <p>Low-value invoice.</p>
             {% endif %}
+    {% empty %}
+            <p>No invoices available.</p>
     {% endfor %}
 
     <h1> Unpaid Invoices</h1>
-    {% for invoice in unpaid_invoices %}
+    {% for inv in unpaid_invoices %}
     <p>
-        {{ invoice.invoice_number}} -
-        {{ invoice.customer_name}} -
-        {{ invoice.amount}}
+        {{ inv.invoice_number }} -
+        {{ inv.customer_name }} -
+        {{ inv.amount }}
     </p>
     {% empty %}
     <p>No unpaid invoices</p>
@@ -29,25 +31,9 @@
         <p>Number: {{ invoice.invoice_number }}</p>
         <p>Customer: {{ invoice.customer_name }}</p>
         <p>Amount: ${{ invoice.amount }}</p>
-        <p>Created: {{ invoice.date_created }}</p>
+        <p>Created: {{ invoice.date_created|date:"d M Y" }}</p>
     {% endif %}
     {% if message %}
     <p style="color: green;">{{ message }}</p>
     {% endif %}
 {% endblock %}
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer details</title>
-</head>
-<body> # Django will replace these variables with actual values when the template is rendered
-    <h1>Invoice for {{ invoice_number }}</h1>
-    <p>Customer Name: {{ customer_name }}</p>
-    <p>Amount: ${{ amount }}</p>
-    <p>Due Date: {{ due_date }}</p>
-    
-</body>
-</html> -->

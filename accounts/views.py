@@ -12,4 +12,4 @@ def signup(request): # defining a view function named signup that takes an HTTP 
         form = CustomUserCreationForm() # creating an empty instance of CustomUserCreationForm to display in the template.
 
     data = {'form': form} # creating a context dictionary to pass the form instance to the template.
-    return render(request, 'accounts/login.html', data) # rendering the signup.html template and passing the form instance to it for display.
+    return render(request, 'accounts/signup.html', data) # rendering the signup.html template and passing the form instance to it for display.
