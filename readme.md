@@ -14,17 +14,21 @@
 *Note: Check if it's installed*
 > `django-admin --version`
 
+
+
 # Create project (Setup Hospital)
 
-## Create django project:
+### Create django project:
 > `django-admin startproject mysite .`
 
 *Note: here "full stop" is telling django to create project right here on this path.*
 
-## Run project to check if everything is working correctlty:
+### Run project to check if everything is working correctlty:
 > `python manage.py runserver`
 
 - #### IMP files: settings (add new applications) and urls (connect urls and webpages)
+
+
 
 # Create applications (Create department in Hospital)
 
@@ -42,19 +46,20 @@
 
 ## Views (django send request object throught url.py to views and they render associated template)
 
-#### Types of Django Views:
+#### - Types of Django Views:
 1) **Function-based View (FBVs):** user sends url input (http request) and django calls function to render template to user.
 > `def functio_name(parameter):  */statements to run/* return`
 
 2) **Class-based View (CBVs):** user sends url input (http request) and django calls class to render template to user.
 > `class classNameView(View_type):  */statement to run/*`
-- Note: class name should always end with "View".
 
-#### When to choose what?
+*Note: class name should always end with "View".*
+
+#### - When to choose what?
 > You should choose Function-Based Views (FBVs) when you need complete control over custom, non-standard workflow logic, and Class-Based Views (CBVs) when your logic maps directly to common CRUD operations (ListView, CreateView, etc) or benefits from object-oriented reusability.
 
 
-#### CRUD Views (Built-in Generic Class-Based Views): practice this with student data management project
+#### - CRUD Views: (Built-in Generic Class-Based Views): practice this with student data management project
 1) Create: CreateView - Renders a form, validates it, and saves a new record
 2) Read: DetailedView (single object) - Displays a detailed page for a single record, ListView (many object) - Displays a list of database records
 3) Update: UpdateView - Renders a form to edit and save an existing record
@@ -62,8 +67,10 @@
 
 ## Templates (receive data from Views and render templates to user, it uses DTL-Django Template Language)
 
-#### Create Template folder
+#### - Create Template folder
 > Create "templates" folder inside application and put HTML files there. Views will find these templates automatically from this folder.
+
+#### - This is how Django Template Language (DTL) works:
 
 - **Variables**: blank spaces in template that gets filled by real data using DTL
 > `{{ variableName }}` # Data is passed from views to template variables
@@ -94,7 +101,7 @@
 2) Then in head tag link it.
 > `<link rel="stylesheet" href="{% static 'file_path' %}">`
 
-##### Note: remember to restart server after creating new template or application.
+#### Note: remember to restart server after creating new template or application.
 
 
 ## Model (query data from database and sends Object Relation Mapping to View)
@@ -284,4 +291,4 @@ After that we can run commands
 
 # Flow from user input to output
 
-#### user sends url request > it gets converted to request object > urls.py automatically checks if it's valid or not > if it's valid then it call views for output rendering > the function view will talk to models to query data in ORM format from database or class view will render template files > template will render the output to user.
+#### user sends url request > it gets converted to request object > urls.py automatically checks if it's valid or not > if it's valid then it call views for output rendering > the function view will talk to models to query data in ORM format from database or class view will render template files > template will render the output to user.quest object > urls.py automatically checks if it's valid or not > if it's valid then it call views for output rendering > the function view will talk to models to query data in ORM format from database or class view will render template files > template will render the output to user.
